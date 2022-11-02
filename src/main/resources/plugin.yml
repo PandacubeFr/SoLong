@@ -1,0 +1,22 @@
+name: SoLong
+prefix: SoLong
+main: fr.pandacube.so_long.SoLong
+version: dev
+author: "Marc Baloup (marcbal/MarcPanda_)"
+depend: []
+softdepend: []
+loadbefore: []
+api-version: 1.19
+
+
+
+permissions:
+
+  solong.system.command:
+    default: true
+
+  solong.system.details:
+    default: op
+
+  solong.broadcast:
+    default: op
