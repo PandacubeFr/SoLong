@@ -21,7 +21,7 @@ public final class BambooCollisionFixer implements Listener {
     public BambooCollisionFixer() {
         // Make the bamboo block have zero collision.
         try {
-            BambooBlock.COLLISION_SHAPE(new AABBVoxelShape(new AABB(0, 0, 0, 0, 0, 0)));
+            BambooBlock.COLLISION_SHAPE(new AABBVoxelShape(new AABB(0.5, 0, 0.5, 0.5, 0, 0.5)));
             Log.info("Bamboo block collision box removed succesfully.");
         } catch (Exception e) {
             Log.severe("Unable to remove the collision box of the Bamboo block.", e);
@@ -39,7 +39,7 @@ public final class BambooCollisionFixer implements Listener {
         if (event.getBlockPlaced().getBlockData().getMaterial().equals(Material.BAMBOO)) {
             BoundingBox currentBambooBoundingBox = originalBambooBoundingBox.clone().shift(event.getBlockPlaced().getLocation());
             for (LivingEntity e : event.getBlock().getLocation().getNearbyLivingEntities(5)) {
-            	if (e.getBoundingBox().overlaps(currentBambooBoundingBox)) {
+                if (e.getBoundingBox().overlaps(currentBambooBoundingBox)) {
                     // Don't place the bamboo as it intersects
                     event.setBuild(false);
                     break;
