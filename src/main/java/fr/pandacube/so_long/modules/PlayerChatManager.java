@@ -269,6 +269,9 @@ public class PlayerChatManager implements Listener {
 		else if (words.contains("pourquoi")) {
 			response = "Pourfeur";
 		}
+		else if (words.contains("quoient")) {
+			response = "feurent";
+		}
 
 		if (response != null) {
 			float r = RandomUtil.rand.nextFloat();
@@ -285,7 +288,7 @@ public class PlayerChatManager implements Listener {
 		}
 
 		if (response != null
-				&& willResponseOccurs(1, 1, 86_400_000, new GregorianCalendar(2022, Calendar.NOVEMBER, 1).getTimeInMillis())) {
+				&& willResponseOccurs(1, 0.9f, 86_400_000, new GregorianCalendar(2022, Calendar.NOVEMBER, 5).getTimeInMillis())) {
 			Chat responseComp = text(response);
 			runLater(() -> bc(responseComp), RandomUtil.nextIntBetween(10, 30));
 			return true;
