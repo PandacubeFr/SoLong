@@ -32,9 +32,10 @@ public class SponsorMyselfInF3 {
         if (op == null)
             return;
         op.sendServerBrand(chat()
-                .then(text("SO LONG !").gold().bold())
-                .thenText(" / Hébergé par ")
+                .then(text("SO LONG !").bold())
+                .thenText("\" \"Hébergé par ")
                 .then(text("Pandacube.fr").italic())
+                .thenText(".")
                 .getLegacyText());
     }
 }

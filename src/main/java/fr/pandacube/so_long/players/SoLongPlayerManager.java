@@ -77,10 +77,9 @@ public class SoLongPlayerManager {
     }
 
     /**
-     * Insensible à la casse
+     * Insensible à la casse.
      *
      * @param p le pseudo du joueur recherché
-     * @return
      */
     public static OnlinePlayer get(String p) {
         return get(Bukkit.getServer().getPlayerExact(p));
@@ -90,8 +89,6 @@ public class SoLongPlayerManager {
      * Get a list snapshot of all connected players.
      * The returned list is not updated when a player join or leave the server,
      * to prevent comodification exception.
-     *
-     * @return
      */
     public static List<OnlinePlayer> getAll() {
         return getInstance().getAll();

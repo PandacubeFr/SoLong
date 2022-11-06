@@ -1,6 +1,6 @@
 package fr.pandacube.so_long.players;
 
-import fr.pandacub.lib.paper.players.PaperOnlinePlayer;
+import fr.pandacube.lib.paper.players.PaperOnlinePlayer;
 import fr.pandacube.lib.paper.reflect.wrapper.craftbukkit.CraftPlayer;
 import fr.pandacube.lib.paper.reflect.wrapper.minecraft.network.FriendlyByteBuf;
 import fr.pandacube.lib.paper.reflect.wrapper.minecraft.network.protocol.ClientboundCustomPayloadPacket;

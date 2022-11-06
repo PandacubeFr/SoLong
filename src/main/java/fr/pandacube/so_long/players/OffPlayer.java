@@ -1,7 +1,7 @@
 package fr.pandacube.so_long.players;
 
-import fr.pandacub.lib.paper.players.PaperOffPlayer;
-import fr.pandacub.lib.paper.players.PaperOnlinePlayer;
+import fr.pandacube.lib.paper.players.PaperOffPlayer;
+import fr.pandacube.lib.paper.players.PaperOnlinePlayer;
 import org.bukkit.Bukkit;
 
 import java.util.UUID;
