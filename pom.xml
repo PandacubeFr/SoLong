@@ -45,12 +45,12 @@
             <groupId>fr.pandacube.lib</groupId>
             <artifactId>pandalib-paper-permissions</artifactId>
             <version>${pandalib.version}</version>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>fr.pandacube.lib</groupId>
             <artifactId>pandalib-paper-players</artifactId>
             <version>${pandalib.version}</version>
-        </dependency> -->
+        </dependency>
         <dependency>
             <groupId>fr.pandacube.lib</groupId>
             <artifactId>pandalib-paper-commands</artifactId>

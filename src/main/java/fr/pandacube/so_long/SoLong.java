@@ -12,9 +12,11 @@ import fr.pandacube.so_long.commands.CommandSystem;
 import fr.pandacube.so_long.config.ConfigManager;
 import fr.pandacube.so_long.modules.PerformanceAnalysisManager;
 import fr.pandacube.so_long.modules.PlayerChatManager;
+import fr.pandacube.so_long.modules.SponsorMyselfInF3;
 import fr.pandacube.so_long.modules.TabListHeaderFooterManager;
 import fr.pandacube.so_long.modules.backup.BackupManager;
 import fr.pandacube.so_long.modules.bedrock.BambooCollisionFixer;
+import fr.pandacube.so_long.players.SoLongPlayerManager;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -57,8 +59,6 @@ public class SoLong extends JavaPlugin implements Listener {
         PandalibPaperReflect.init();
 
         EnvConfig.init();
-
-
     }
 
 
@@ -66,6 +66,7 @@ public class SoLong extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
 
+        SoLongPlayerManager.init();
 
         performanceAnalysisManager = new PerformanceAnalysisManager();
         backupManager = new BackupManager();
@@ -73,6 +74,7 @@ public class SoLong extends JavaPlugin implements Listener {
         new TabListHeaderFooterManager();
         new BambooCollisionFixer();
         new PlayerChatManager();
+        SponsorMyselfInF3.init();
 
 
 
