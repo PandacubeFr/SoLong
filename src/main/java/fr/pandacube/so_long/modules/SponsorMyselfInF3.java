@@ -35,7 +35,6 @@ public class SponsorMyselfInF3 {
                 .then(text("SO LONG !").bold())
                 .thenText("\" \"Hébergé par ")
                 .then(text("Pandacube.fr").italic())
-                .thenText(".")
-                .getLegacyText());
+                .getLegacyText() + "§r");
     }
 }
