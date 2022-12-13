@@ -76,6 +76,10 @@ public class SoLongPlayerManager {
         return getInstance().get(pId);
     }
 
+    public static OffPlayer getOffline(UUID pId) {
+        return getInstance().getOffline(pId);
+    }
+
     /**
      * Insensible à la casse.
      *

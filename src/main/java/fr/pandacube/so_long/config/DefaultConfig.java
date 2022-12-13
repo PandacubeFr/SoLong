@@ -1,6 +1,7 @@
 package fr.pandacube.so_long.config;
 
 import fr.pandacube.lib.core.config.AbstractConfig;
+import fr.pandacube.lib.util.Log;
 import fr.pandacube.so_long.SoLong;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,19 +17,20 @@ public class DefaultConfig {
 	
 	
 	
-	private SoLong plugin = SoLong.getPlugin();
+	private final SoLong plugin = SoLong.getPlugin();
 
-	private FileConfiguration configFile;
-	
+	private final FileConfiguration configFile;
+
 	/*
 	 * Backup
 	 */
-	
-	public final String backup_compress;
+
+	public final boolean backup_enabled;
+	public final String backup_scheduling;
 	public final String backup_destination;
-	
+
 	// patterns are regex (used for String.match(regex))
-	public final Map<String, List<String>> backup_othersIgnore;
+	public final List<String> backup_workdirIgnore;
 	
 	
 	
@@ -39,15 +41,16 @@ public class DefaultConfig {
 
 		configFile = plugin.getConfig();
 
-		backup_compress = configFile.getString("backup.compress", "48h");
-		backup_destination = configFile.getString("backup.destination", "./minebackup");
-		
-		ConfigurationSection backup_othersIgnoreSection = configFile.getConfigurationSection("backup.othersIgnore");
-		Map<String, List<String>> backup_othersIgnoreModifiable = new HashMap<>();
-		for (String k : backup_othersIgnoreSection.getKeys(false)) {
-			backup_othersIgnoreModifiable.put(k, backup_othersIgnoreSection.getStringList(k));
+		backup_enabled = configFile.getBoolean("backup.enabled", false);
+		backup_scheduling = configFile.getString("backup.scheduling", "0 1 */2 * *"); // 1am every 2 days
+		backup_destination = configFile.getString("backup.destination"); // no default value
+
+		backup_workdirIgnore = configFile.contains("backup.workdirIgnore")
+				? configFile.getStringList("backup.workdirIgnore")
+				: configFile.getStringList("backup.othersIgnore.root");
+		if (configFile.contains("backup.othersIgnore")) {
+			Log.warning("Config entry backup.othersIgnore still present in config.yml. Please migrate the configuration into backup.workdirIgnore node.");
 		}
-		backup_othersIgnore = Collections.unmodifiableMap(backup_othersIgnoreModifiable);
 		
 	}
 

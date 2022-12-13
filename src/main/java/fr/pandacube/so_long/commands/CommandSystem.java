@@ -5,13 +5,16 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import fr.pandacube.lib.chat.Chat;
+import fr.pandacube.lib.chat.ChatConfig.PandaTheme;
 import fr.pandacube.lib.chat.ChatUtil;
 import fr.pandacube.lib.commands.SuggestionsSupplier;
+import fr.pandacube.lib.paper.modules.PerformanceAnalysisManager;
+import fr.pandacube.lib.util.Log;
 import fr.pandacube.lib.util.MemoryUtil;
 import fr.pandacube.lib.util.TimeUtil;
-import fr.pandacube.so_long.modules.PerformanceAnalysisManager;
+import fr.pandacube.so_long.players.OnlinePlayer;
+import fr.pandacube.so_long.players.SoLongPlayerManager;
 import fr.pandacube.so_long.util.WorldSaveUtil;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -19,7 +22,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
@@ -89,32 +91,32 @@ public class CommandSystem extends BrigadierCommand {
 		values_bar[0] = allocMem - freeMem;
 		values_bar[1] = freeMem;
 		TextColor[] colors_bar = new TextColor[2];
-		colors_bar[0] = NamedTextColor.RED;
-		colors_bar[1] = NamedTextColor.GREEN;
+		colors_bar[0] = PandaTheme.CHAT_FAILURE_COLOR;
+		colors_bar[1] = PandaTheme.CHAT_GREEN_1_NORMAL;
 		sender.sendMessage(ChatUtil.progressBar(values_bar, colors_bar, maxMem,
 				((sender instanceof Player) ? 310 : 43), !(sender instanceof Player)));
 
 		// tps
-		float tps1s = plugin.performanceAnalysisManager.getTPS(1_000);
-		float tps10s = plugin.performanceAnalysisManager.getTPS(10_000);
-		float tps1m = plugin.performanceAnalysisManager.getTPS(60_000);
+		float tps1s = PerformanceAnalysisManager.getInstance().getTPS(1_000);
+		float tps10s = PerformanceAnalysisManager.getInstance().getTPS(10_000);
+		float tps1m = PerformanceAnalysisManager.getInstance().getTPS(60_000);
 		
 		String tps1sDisp = Float.isNaN(tps1s) ? "N/A" : (Math.round(tps1s)) + "";
 		String tps10sDisp = Float.isNaN(tps10s) ? "N/A" : (Math.round(tps10s * 10) / 10D) + "";
 		String tps1mDisp = Float.isNaN(tps1m) ? "N/A" : (Math.round(tps1m * 10) / 10D) + "";
 		
-		int[] tpsHistory = plugin.performanceAnalysisManager.getTPSHistory();
+		int[] tpsHistory = PerformanceAnalysisManager.getInstance().getTPSHistory();
 		sender.sendMessage(infoText("TPS : ")
-				.then(text("1s:"+tps1sDisp+"/20").color(plugin.performanceAnalysisManager.tps1sGradient.pickColorAt(tps1s)))
+				.then(text("1s:"+tps1sDisp+"/20").color(PerformanceAnalysisManager.getInstance().tps1sGradient.pickColorAt(tps1s)))
 				.thenText(" - ")
-				.then(text("10s:"+tps10sDisp+"/20").color(plugin.performanceAnalysisManager.tps10sGradient.pickColorAt(tps10s)))
+				.then(text("10s:"+tps10sDisp+"/20").color(PerformanceAnalysisManager.getInstance().tps10sGradient.pickColorAt(tps10s)))
 				.thenText(" - ")
-				.then(text("1m:"+tps1mDisp+"/20").color(plugin.performanceAnalysisManager.tps1mGradient.pickColorAt(tps1m))));
+				.then(text("1m:"+tps1mDisp+"/20").color(PerformanceAnalysisManager.getInstance().tps1mGradient.pickColorAt(tps1m))));
 		Chat c = infoText("[");
 		for (int i = ((sender instanceof Player) ? 59 : 40); i >= 0; i--) {
 			int t = tpsHistory[i];
 			c.then(text("|")
-					.color(plugin.performanceAnalysisManager.tps1sGradient.pickColorAt(t))
+					.color(PerformanceAnalysisManager.getInstance().tps1sGradient.pickColorAt(t))
 					.bold()
 					.hover(text("-" + i + "s : " + t + " TPS"))
 			);
@@ -178,14 +180,19 @@ public class CommandSystem extends BrigadierCommand {
 	private int bar(CommandContext<BukkitBrigadierCommandSource> context) {
 		CommandSender sender = getCommandSender(context);
 		Player p = (Player) sender;
-		if (plugin.performanceAnalysisManager.barsContainsPlayer(p)) {
-			plugin.performanceAnalysisManager.removePlayerToBars(p);
-			p.getPersistentDataContainer().set(PerformanceAnalysisManager.lagBarConfigKey, PersistentDataType.BYTE, (byte)0);
+		OnlinePlayer op = SoLongPlayerManager.get(p);
+		if (PerformanceAnalysisManager.getInstance().barsContainsPlayer(p)) {
+			PerformanceAnalysisManager.getInstance().removePlayerToBars(p);
+			try {
+				op.unsetConfig("system.bar");
+			} catch (Exception e) { Log.severe(e); }
 			sender.sendMessage(successText("Les barres de statistique ont été retirées."));
 		}
 		else {
-			plugin.performanceAnalysisManager.addPlayerToBars(p);
-			p.getPersistentDataContainer().set(PerformanceAnalysisManager.lagBarConfigKey, PersistentDataType.BYTE, (byte)1);
+			PerformanceAnalysisManager.getInstance().addPlayerToBars(p);
+			try {
+				op.setConfig("system.bar", "true");
+			} catch (Exception e) { Log.severe(e); }
 			sender.sendMessage(successText("Les barres de statistique ont été activées."));
 		}
 		return 1;

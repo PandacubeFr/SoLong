@@ -1,6 +1,7 @@
 package fr.pandacube.so_long.util;
 
 import fr.pandacube.lib.chat.Chat;
+import fr.pandacube.lib.paper.modules.PerformanceAnalysisManager;
 import fr.pandacube.lib.paper.reflect.wrapper.craftbukkit.CraftWorld;
 import fr.pandacube.lib.paper.reflect.wrapper.minecraft.server.ChunkMap;
 import fr.pandacube.lib.reflect.wrapper.ReflectWrapper;
@@ -16,14 +17,14 @@ public class WorldSaveUtil {
 	}
 	
 	public static void nmsSaveFlush(World w) {
-		SoLong.getPlugin().performanceAnalysisManager.setAlteredTPSTitle(
+		PerformanceAnalysisManager.getInstance().setAlteredTPSTitle(
 				Chat.text("Sauvegarde map ").color(NamedTextColor.GOLD).thenData(w.getName()).thenText(" ...")
 				);
 		
 		try {
 			ReflectWrapper.wrapTyped(w, CraftWorld.class).getHandle().save(null, true, false);
 		} finally {
-			SoLong.getPlugin().performanceAnalysisManager.setAlteredTPSTitle(null);
+			PerformanceAnalysisManager.getInstance().setAlteredTPSTitle(null);
 		}
 	}
 	

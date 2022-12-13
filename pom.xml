@@ -48,11 +48,6 @@
         </dependency> -->
         <dependency>
             <groupId>fr.pandacube.lib</groupId>
-            <artifactId>pandalib-paper-players</artifactId>
-            <version>${pandalib.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>fr.pandacube.lib</groupId>
             <artifactId>pandalib-paper-commands</artifactId>
             <version>${pandalib.version}</version>
         </dependency>

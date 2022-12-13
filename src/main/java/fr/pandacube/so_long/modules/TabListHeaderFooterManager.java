@@ -1,5 +1,6 @@
 package fr.pandacube.so_long.modules;
 
+import fr.pandacube.lib.paper.modules.PerformanceAnalysisManager;
 import fr.pandacube.so_long.SoLong;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -39,9 +40,9 @@ public class TabListHeaderFooterManager implements Listener {
                         .thenData(playerCount)
                         .thenInfo(" joueur" + (playerCount > 1 ? "s" : "") + " en ligne"),
                 chat()
-                        .then(SoLong.getPlugin().performanceAnalysisManager.tpsBar.bar.name())
+                        .then(PerformanceAnalysisManager.getInstance().tpsBar.bar.name())
                         .thenNewLine()
-                        .then(SoLong.getPlugin().performanceAnalysisManager.memoryBar.bar.name())
+                        .then(PerformanceAnalysisManager.getInstance().memoryBar.bar.name())
                         .thenNewLine()
                         .thenInfo("Ping : ")
                         .thenData(p.getPing() + " ms")
