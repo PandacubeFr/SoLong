@@ -288,7 +288,7 @@ public class PlayerChatManager implements Listener {
 		}
 
 		if (response != null
-				&& willResponseOccurs(1, 0.9f, 86_400_000, new GregorianCalendar(2022, Calendar.NOVEMBER, 5).getTimeInMillis())) {
+				&& willResponseOccurs(1, 0.95f, 86_400_000, new GregorianCalendar(2022, Calendar.NOVEMBER, 20).getTimeInMillis())) {
 			Chat responseComp = text(response);
 			runLater(() -> bc(responseComp), RandomUtil.nextIntBetween(10, 30));
 			return true;
@@ -303,12 +303,8 @@ public class PlayerChatManager implements Listener {
 
 
 	private boolean handleLuigi(List<String> words) {
-		int i;
-		boolean response = false;
-		if (words.contains("luigi") || words.contains("mario")) {
-			response = true;
-		}
-
+		boolean response = words.contains("luigi")
+				|| words.contains("mario");
 
 		if (response
 				&& willResponseOccurs(1, 1, 86_400_000, new GregorianCalendar(2022, Calendar.NOVEMBER, 1).getTimeInMillis())) {
@@ -322,9 +318,8 @@ public class PlayerChatManager implements Listener {
 							bc(text("G"));
 							runLater(() -> {
 								bc(text("I"));
-								runLater(() -> {
-									bc(text("MON NOM C'EST L-U-I-G-I !"));
-								}, RandomUtil.nextIntBetween(20, 30));
+								runLater(() -> bc(text("MON NOM C'EST L-U-I-G-I !")),
+										RandomUtil.nextIntBetween(20, 30));
 							}, RandomUtil.nextIntBetween(10, 15));
 						}, RandomUtil.nextIntBetween(10, 15));
 					}, RandomUtil.nextIntBetween(10, 15));
@@ -337,52 +332,6 @@ public class PlayerChatManager implements Listener {
 
 
 
-
-
-
-
-
-	private boolean handlePanneau(List<String> words) {
-		int i;
-		boolean response = false;
-		if (words.contains("panneau")
-				|| words.contains("panneaux")) {
-			response = true;
-		}
-
-
-		if (response
-				&& willResponseOccurs(1, 1, 86_400_000, new GregorianCalendar(2022, Calendar.NOVEMBER, 1).getTimeInMillis())) {
-			runLater(() -> bc(text("Y a pas de panneau !")),
-					RandomUtil.nextIntBetween(10, 30));
-			return true;
-		}
-		return false;
-	}
-
-
-
-
-
-
-
-
-	private boolean handleLord(List<String> words) {
-		int i;
-		boolean response = false;
-		if (words.contains("lord")
-				|| words.contains("sealand")) {
-			response = true;
-		}
-
-
-		if (response && willResponseOccurs(1, 1, 86_400_000, new GregorianCalendar(2022, Calendar.NOVEMBER, 1).getTimeInMillis())) {
-			runLater(() -> bc(text("Worldwide Lord")),
-					RandomUtil.nextIntBetween(10, 30));
-			return true;
-		}
-		return false;
-	}
 
 
 

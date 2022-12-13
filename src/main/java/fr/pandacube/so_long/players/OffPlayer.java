@@ -1,7 +1,6 @@
 package fr.pandacube.so_long.players;
 
 import fr.pandacube.lib.paper.players.PaperOffPlayer;
-import fr.pandacube.lib.paper.players.PaperOnlinePlayer;
 
 import java.util.UUID;
 
@@ -24,7 +23,7 @@ public class OffPlayer implements PaperOffPlayer {
     }
 
     @Override
-    public PaperOnlinePlayer getOnlineInstance() {
+    public OnlinePlayer getOnlineInstance() {
         if (isOnline()) {
             if (this instanceof OnlinePlayer)
                 return (OnlinePlayer) this;

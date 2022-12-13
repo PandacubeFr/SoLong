@@ -3,14 +3,10 @@ package fr.pandacube.so_long.config;
 import fr.pandacube.lib.core.config.AbstractConfig;
 import fr.pandacube.lib.util.Log;
 import fr.pandacube.so_long.SoLong;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class DefaultConfig {
 	public static final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

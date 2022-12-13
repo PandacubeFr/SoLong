@@ -1,17 +1,13 @@
 package fr.pandacube.so_long.modules;
 
-import fr.pandacube.lib.paper.scheduler.SchedulerUtil;
 import fr.pandacube.lib.paper.util.BukkitEvent;
 import fr.pandacube.so_long.SoLong;
 import fr.pandacube.so_long.players.OnlinePlayer;
 import fr.pandacube.so_long.players.SoLongPlayerManager;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
-
-import java.net.http.WebSocket.Listener;
 
 import static fr.pandacube.lib.chat.ChatStatic.chat;
 import static fr.pandacube.lib.chat.ChatStatic.text;
