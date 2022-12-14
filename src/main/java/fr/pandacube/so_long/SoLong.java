@@ -54,7 +54,7 @@ public class SoLong extends JavaPlugin implements Listener {
 
         Log.setLogger(getLogger());
 
-        PandaLibPaper.init(this);
+        PandaLibPaper.onLoad(this);
         PandalibPaperReflect.init();
     }
 
@@ -63,6 +63,7 @@ public class SoLong extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
 
+        PandaLibPaper.onEnable();
         SoLongPlayerManager.init();
         backupManager = new BackupManager();
 
