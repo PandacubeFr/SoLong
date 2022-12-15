@@ -102,6 +102,7 @@
                                     <include>net.kyori:adventure-platform-api</include>
                                     <include>net.kyori:adventure-text-serializer-bungeecord</include>
                                     <include>net.kyori:adventure-platform-facet</include>
+                                    <include>ch.eitchnet:cron</include>
                                 </includes>
                             </artifactSet>
                         </configuration>
