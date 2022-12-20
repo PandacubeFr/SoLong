@@ -1,12 +1,13 @@
 package fr.pandacube.so_long.modules;
 
-import fr.pandacube.lib.paper.modules.backup.BackupConfig;
+import fr.pandacube.lib.paper.backup.PaperBackupConfig;
+import fr.pandacube.lib.paper.backup.PaperBackupManager;
 import fr.pandacube.so_long.config.ConfigManager;
 import fr.pandacube.so_long.config.DefaultConfig;
 
 import java.io.File;
 
-public class BackupManager extends fr.pandacube.lib.paper.modules.backup.BackupManager {
+public class BackupManager extends PaperBackupManager {
 
     public BackupManager() {
         super(generateConfig());
@@ -17,9 +18,9 @@ public class BackupManager extends fr.pandacube.lib.paper.modules.backup.BackupM
     }
 
 
-    private static BackupConfig generateConfig() {
+    private static PaperBackupConfig generateConfig() {
         DefaultConfig pluginConfig = ConfigManager.getInstance().getDefaultConfig();
-        BackupConfig cfg = new BackupConfig();
+        PaperBackupConfig cfg = new PaperBackupConfig();
         cfg.workdirBackupEnabled = pluginConfig.backup_enabled;
         cfg.worldBackupEnabled = pluginConfig.backup_enabled;
         cfg.backupDirectory = new File(pluginConfig.backup_destination);
