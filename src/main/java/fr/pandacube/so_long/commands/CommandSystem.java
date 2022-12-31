@@ -91,7 +91,7 @@ public class CommandSystem extends BrigadierCommand {
 		values_bar[0] = allocMem - freeMem;
 		values_bar[1] = freeMem;
 		TextColor[] colors_bar = new TextColor[2];
-		colors_bar[0] = PandaTheme.CHAT_FAILURE_COLOR;
+		colors_bar[0] = PandaTheme.CHAT_RED_FAILURE;
 		colors_bar[1] = PandaTheme.CHAT_GREEN_1_NORMAL;
 		sender.sendMessage(ChatUtil.progressBar(values_bar, colors_bar, maxMem,
 				((sender instanceof Player) ? 310 : 43), !(sender instanceof Player)));

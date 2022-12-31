@@ -44,9 +44,6 @@ public class DefaultConfig {
 		backup_workdirIgnore = configFile.contains("backup.workdirIgnore")
 				? configFile.getStringList("backup.workdirIgnore")
 				: configFile.getStringList("backup.othersIgnore.root");
-		if (configFile.contains("backup.othersIgnore")) {
-			Log.warning("Config entry backup.othersIgnore still present in config.yml. Please migrate the configuration into backup.workdirIgnore node.");
-		}
 		
 	}
 
