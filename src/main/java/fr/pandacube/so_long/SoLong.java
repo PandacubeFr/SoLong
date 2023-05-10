@@ -28,6 +28,7 @@ import java.util.TimeZone;
 import static fr.pandacube.lib.chat.ChatFilledLine.centerText;
 import static fr.pandacube.lib.chat.ChatStatic.chat;
 import static fr.pandacube.lib.chat.ChatStatic.text;
+import static fr.pandacube.lib.util.ThrowableUtil.wrapEx;
 
 public class SoLong extends JavaPlugin implements Listener {
 
@@ -55,7 +56,7 @@ public class SoLong extends JavaPlugin implements Listener {
         Log.setLogger(getLogger());
 
         PandaLibPaper.onLoad(this);
-        PandalibPaperReflect.init();
+        wrapEx(PandalibPaperReflect::init);
     }
 
 
