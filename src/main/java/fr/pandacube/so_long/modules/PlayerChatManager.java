@@ -241,6 +241,7 @@ public class PlayerChatManager implements Listener {
 		List<String> words = getAllValidWords(message);
 
 		if (handleQuoi(words)
+				|| handleComment(words)
 				|| handleLuigi(words)) {
 			lastEaserEgg = System.currentTimeMillis();
 		}
@@ -288,7 +289,37 @@ public class PlayerChatManager implements Listener {
 		}
 
 		if (response != null
-				&& willResponseOccurs(1, 0.95f, 86_400_000, new GregorianCalendar(2022, Calendar.NOVEMBER, 20).getTimeInMillis())) {
+				&& willResponseOccurs(1, 0.99f, 86_400_000, new GregorianCalendar(2022, Calendar.NOVEMBER, 20).getTimeInMillis(), 0.1f)) {
+			Chat responseComp = text(response);
+			runLater(() -> bc(responseComp), RandomUtil.nextIntBetween(10, 30));
+			return true;
+		}
+		return false;
+	}
+
+
+	private boolean handleComment(List<String> words) {
+		String response = null;
+		if (words.contains("comment")) {
+			response = "-dant Cousteau";
+		}
+
+		if (response != null) {
+			float r = RandomUtil.rand.nextFloat();
+			if (r < 1/3d) {
+				response += " !";
+			}
+			else if (r < 2/3d) {
+				response += ".";
+			}
+			r = RandomUtil.rand.nextFloat();
+			if (r < .25) {
+				response = response.toUpperCase();
+			}
+		}
+
+		if (response != null
+				&& willResponseOccurs(0.5f, 0.99f, 86_400_000, new GregorianCalendar(2023, Calendar.MARCH, 20).getTimeInMillis(), 0.1f)) {
 			Chat responseComp = text(response);
 			runLater(() -> bc(responseComp), RandomUtil.nextIntBetween(10, 30));
 			return true;
@@ -307,7 +338,7 @@ public class PlayerChatManager implements Listener {
 				|| words.contains("mario");
 
 		if (response
-				&& willResponseOccurs(1, 1, 86_400_000, new GregorianCalendar(2022, Calendar.NOVEMBER, 1).getTimeInMillis())) {
+				&& willResponseOccurs(1, 0.995f, 86_400_000, new GregorianCalendar(2022, Calendar.NOVEMBER, 1).getTimeInMillis(), 0.3f)) {
 			runLater(() -> {
 				bc(text("L"));
 				runLater(() -> {
@@ -337,12 +368,12 @@ public class PlayerChatManager implements Listener {
 
 
 
-	private boolean willResponseOccurs(float initialProba, float reason, long timePerReason, long initialTime) {
+	private boolean willResponseOccurs(float initialProba, float reason, long timePerReason, long initialTime, float minimalProba) {
 		// probability based on elapsed time since writing those lines,
 		// to reduce appearance of this easer-egg (due to players being more and more annoyed)
 		float rank = Math.max(System.currentTimeMillis() - initialTime, 0) / (float) timePerReason;
 		float currentProba = initialProba * (float) Math.pow(reason, rank);
-		return RandomUtil.rand.nextFloat() < currentProba;
+		return RandomUtil.rand.nextFloat() < Math.max(currentProba, minimalProba);
 	}
 
 
